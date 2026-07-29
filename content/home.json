@@ -1,8 +1,8 @@
 {
   "hero_image": "/uploads/ss.png",
-  "work_bg": "",
-  "life_bg": "",
-  "words_bg": "",
+  "work_bg": "/uploads/frame-174.png",
+  "life_bg": "/uploads/frame-173.png",
+  "words_bg": "/uploads/frame-175.png",
   "photo_bg": "",
   "drone_bg": "",
   "moto_bg": "",
