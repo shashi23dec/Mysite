@@ -1,0 +1,144 @@
+# ============================================================
+# Decap CMS config for shashisudhanshu.com
+#
+# This connects the /admin login screen to your Git repo, so
+# every image you upload or edit gets saved as a real commit —
+# no separate database or server to run.
+#
+# Before this works you need to:
+#   1. Push this whole site folder to a GitHub repository.
+#   2. Deploy that repo on Netlify (free tier is fine) and
+#      point shashisudhanshu.com at it.
+#   3. In Netlify: Site settings → Identity → Enable Identity,
+#      then Services → Git Gateway → Enable.
+#   4. Invite yourself as a user under Identity, and log in at
+#      shashisudhanshu.com/admin
+# ============================================================
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Lets you upload images straight into the repo under /uploads
+media_folder: "uploads"
+public_folder: "/uploads"
+
+collections:
+
+  - name: "home"
+    label: "Home Page"
+    files:
+      - name: "home"
+        label: "Home Page Media"
+        file: "content/home.json"
+        fields:
+          - { label: "Hero Background (image or video poster)", name: "hero_image", widget: "image", required: false }
+          - { label: "Work Card Background", name: "work_bg", widget: "image", required: false }
+          - { label: "Life Card Background", name: "life_bg", widget: "image", required: false }
+          - { label: "Words Card Background", name: "words_bg", widget: "image", required: false }
+          - { label: "Life Section — Photography Tile", name: "photo_bg", widget: "image", required: false }
+          - { label: "Life Section — Droneacharya Tile", name: "drone_bg", widget: "image", required: false }
+          - { label: "Life Section — Motorcycle Tile", name: "moto_bg", widget: "image", required: false }
+          - { label: "Life Section — Travel Tile", name: "travel_bg", widget: "image", required: false }
+
+  - name: "photography"
+    label: "Photography Page"
+    files:
+      - name: "photography"
+        label: "Photography Gallery"
+        file: "content/photography.json"
+        fields:
+          - name: "items"
+            label: "Photos"
+            widget: "list"
+            summary: "{{fields.caption}}"
+            fields:
+              - { label: "Photo", name: "image", widget: "image" }
+              - { label: "Caption", name: "caption", widget: "string", required: false }
+              - label: "Tile Size"
+                name: "size"
+                widget: "select"
+                options: ["sq", "wide", "tall", "full"]
+                default: "sq"
+
+  - name: "travel"
+    label: "Travel Page"
+    files:
+      - name: "travel"
+        label: "Travel Gallery"
+        file: "content/travel.json"
+        fields:
+          - name: "items"
+            label: "Photos"
+            widget: "list"
+            summary: "{{fields.caption}}"
+            fields:
+              - { label: "Photo", name: "image", widget: "image" }
+              - { label: "Caption", name: "caption", widget: "string", required: false }
+              - label: "Tile Size"
+                name: "size"
+                widget: "select"
+                options: ["sq", "wide", "tall", "full"]
+                default: "sq"
+
+  - name: "workshop"
+    label: "Workshop Page"
+    files:
+      - name: "workshop"
+        label: "Workshop Gallery"
+        file: "content/workshop.json"
+        fields:
+          - name: "items"
+            label: "Photos & Video Stills"
+            widget: "list"
+            summary: "{{fields.caption}}"
+            fields:
+              - { label: "Photo", name: "image", widget: "image" }
+              - { label: "Caption", name: "caption", widget: "string", required: false }
+              - label: "Tile Size"
+                name: "size"
+                widget: "select"
+                options: ["sq", "wide", "tall", "full"]
+                default: "sq"
+
+  - name: "droneacharya"
+    label: "Droneacharya Page"
+    files:
+      - name: "droneacharya"
+        label: "Drone Films"
+        file: "content/droneacharya.json"
+        fields:
+          - name: "items"
+            label: "Videos"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "YouTube Video ID (the part after v= in the URL)", name: "youtubeId", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+
+  - name: "poetry"
+    label: "Poetry Page"
+    files:
+      - name: "poetry"
+        label: "Poetry Collection"
+        file: "content/poetry.json"
+        fields:
+          - name: "poems"
+            label: "Poems (text)"
+            widget: "list"
+            summary: "{{fields.category}}"
+            fields:
+              - { label: "Category", name: "category", widget: "string" }
+              - { label: "Poem Text (Hindi)", name: "text", widget: "text" }
+          - name: "media"
+            label: "Poems (photo / video)"
+            widget: "list"
+            fields:
+              - label: "Type"
+                name: "type"
+                widget: "select"
+                options: ["image", "video"]
+              - { label: "Photo", name: "image", widget: "image", required: false }
+              - { label: "YouTube Video ID", name: "youtubeId", widget: "string", required: false }
+          - { label: "Book One Cover — मन का रंगरेज़", name: "book_one_cover", widget: "image", required: false }
+          - { label: "Book Two Cover — बातों का बुनकर", name: "book_two_cover", widget: "image", required: false }

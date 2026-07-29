@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shashi Sudhanshu — Engineer. Entrepreneur. Storyteller.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15181d;
+    --paper:#f6f4ef;
+    --paper-dim:#efece4;
+    --muted:#6d6a60;
+    --line:#d8d4c8;
+    --brass:#a9814e;
+    --brass-soft:#c9a877;
+    --navy:#0d141f;
+    --navy-line:#3a4658;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    cursor:default;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--brass-soft);color:var(--navy);}
+  img,.bg-layer{-webkit-user-drag:none;user-select:none;}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--brass);
+  }
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;letter-spacing:-.01em;}
+  .serif-italic{font-style:italic;font-weight:400;}
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .9s cubic-bezier(.16,.8,.24,1),transform .9s cubic-bezier(.16,.8,.24,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:28px 6vw;
+    mix-blend-mode:difference;
+    color:#fff;
+    transition:padding .4s ease;
+  }
+  header .logo{font-family:'Fraunces',serif;font-size:18px;letter-spacing:.02em;}
+  nav{display:flex;gap:36px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;}
+  nav a{opacity:.75;transition:opacity .2s;position:relative;}
+  nav a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;background:#fff;transition:width .25s ease;}
+  nav a:hover{opacity:1;}
+  nav a:hover::after{width:100%;}
+  .nav-toggle{display:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:none;border:none;color:#fff;cursor:pointer;}
+
+  section{position:relative;z-index:2;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 6vw;}
+  .section{padding:140px 0;}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;gap:40px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:28px;}
+  .section-head h2{font-size:clamp(30px,4vw,52px);}
+  .section-num{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);}
+
+  /* ================= HERO with parallax background ================= */
+  .hero{
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding:0 6vw 90px;
+    position:relative;
+    overflow:hidden;
+    color:#f6f4ef;
+  }
+  .hero-bg{
+    position:absolute;inset:-10% 0 0 0;height:120%;
+    background:
+      radial-gradient(ellipse 60% 50% at 25% 20%, rgba(169,129,78,.35), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 80% 90%, rgba(58,70,88,.55), transparent 55%),
+      linear-gradient(160deg,#0d141f 0%,#161c24 35%,#2a2117 70%,#0d141f 100%);
+    background-size:200% 200%, 200% 200%, 100% 100%;
+    animation:driftbg 24s ease-in-out infinite alternate;
+    will-change:transform;
+    z-index:0;
+  }
+  .hero-bg::after{
+    content:'';position:absolute;inset:0;
+    background-image:radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size:3px 3px;
+    opacity:.5;
+    mix-blend-mode:overlay;
+  }
+  @keyframes driftbg{
+    0%{background-position:20% 10%, 80% 90%, 0 0;}
+    100%{background-position:40% 30%, 60% 70%, 0 0;}
+  }
+  .hero-scrim{position:absolute;inset:0;background:linear-gradient(0deg,rgba(13,20,31,.85) 0%,rgba(13,20,31,.15) 55%,rgba(13,20,31,.35) 100%);z-index:1;}
+  .hero-note{position:absolute;top:110px;right:6vw;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:rgba(246,244,239,.45);text-align:right;max-width:220px;text-transform:uppercase;}
+  .hero-content{position:relative;z-index:2;}
+  .hero-kicker{margin-bottom:22px;display:flex;align-items:center;gap:14px;}
+  .hero-kicker .dash{width:34px;height:1px;background:var(--brass-soft);}
+  .hero-kicker span{color:rgba(246,244,239,.7);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;}
+  .hero h1{
+    font-size:clamp(38px,6.8vw,96px);
+    line-height:1.02;
+    max-width:17ch;
+    color:#f6f4ef;
+  }
+  .hero h1 em{font-style:italic;font-weight:400;color:var(--brass-soft);}
+  .hero-sub{
+    margin-top:26px;
+    max-width:44ch;
+    font-size:17px;
+    color:rgba(246,244,239,.65);
+    font-weight:300;
+  }
+  .hero-actions{margin-top:42px;display:flex;gap:18px;flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    padding:15px 26px;
+    border:1px solid currentColor;
+    display:inline-block;
+    transition:all .25s ease;
+  }
+  .btn-primary{background:#f6f4ef;color:#0d141f;border-color:#f6f4ef;}
+  .btn-primary:hover{background:transparent;color:#f6f4ef;}
+  .btn-ghost{color:#f6f4ef;border-color:rgba(246,244,239,.4);}
+  .btn-ghost:hover{border-color:#f6f4ef;}
+  .btn-dark{color:var(--ink);border-color:var(--ink);}
+  .btn-dark.filled{background:var(--ink);color:var(--paper);}
+  .btn-dark.filled:hover{background:transparent;color:var(--ink);}
+
+  .scroll-cue{
+    position:absolute;left:6vw;bottom:36px;z-index:2;
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.15em;
+    color:rgba(246,244,239,.55);text-transform:uppercase;
+    display:flex;align-items:center;gap:10px;
+  }
+  .scroll-cue .bar{width:1px;height:28px;background:rgba(246,244,239,.3);position:relative;overflow:hidden;}
+  .scroll-cue .bar::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--brass-soft);animation:scrollpulse 2.2s infinite;}
+  @keyframes scrollpulse{ to{top:100%;} }
+
+  /* ================= worlds intro ================= */
+  .worlds-intro .wrap{padding-bottom:0;}
+
+  /* ================= World cards — photographic + interactive ================= */
+  .worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .world-card{
+    position:relative;overflow:hidden;border-radius:2px;
+    min-height:520px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding:38px;color:#f6f4ef;
+    transform-style:preserve-3d;
+    transition:transform .4s cubic-bezier(.16,.8,.24,1);
+  }
+  .world-card .bg-layer{
+    position:absolute;inset:-8%;
+    transition:transform .6s cubic-bezier(.16,.8,.24,1),filter .6s ease;
+    filter:grayscale(35%) brightness(.75);
+  }
+  .world-card:hover .bg-layer{transform:scale(1.08);filter:grayscale(0%) brightness(.85);}
+  .world-card::before{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,12,15,.92) 0%,rgba(10,12,15,.25) 55%,rgba(10,12,15,.15) 100%);z-index:1;}
+  .world-card .content{position:relative;z-index:2;}
+  .world-card.w1 .bg-layer{background:radial-gradient(circle at 30% 20%, rgba(169,129,78,.5), transparent 55%), linear-gradient(155deg,#1c2430,#33465b 55%,#0d141f);}
+  .world-card.w2 .bg-layer{background:radial-gradient(circle at 70% 30%, rgba(169,129,78,.45), transparent 55%), linear-gradient(155deg,#241d1a,#5c3d28 55%,#141210);}
+  .world-card.w3 .bg-layer{background:radial-gradient(circle at 50% 70%, rgba(169,129,78,.4), transparent 55%), linear-gradient(155deg,#14161c,#2c3038 55%,#0d141f);}
+  .world-card .eyebrow{color:var(--brass-soft);margin-bottom:16px;}
+  .world-card h3{font-size:32px;margin-bottom:12px;}
+  .world-card p{color:rgba(246,244,239,.7);font-size:14.5px;font-weight:300;max-width:30ch;}
+  .world-card .go{margin-top:26px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;}
+  .world-card .go .arrow{transition:transform .25s ease;}
+  .world-card:hover .go .arrow{transform:translateX(6px);}
+
+  /* ================= WORK ================= */
+  .pillars{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+  .pillar{background:var(--paper);padding:44px 36px;display:flex;flex-direction:column;}
+  .pillar .num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--brass);margin-bottom:20px;}
+  .pillar h4{font-family:'Fraunces',serif;font-size:26px;margin-bottom:12px;}
+  .pillar p{color:var(--muted);font-size:14px;font-weight:300;margin-bottom:20px;}
+  .pillar .list{list-style:none;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);display:flex;flex-direction:column;gap:9px;margin-top:auto;}
+  .pillar .list li{display:flex;align-items:center;gap:10px;}
+  .pillar .list li::before{content:'';width:4px;height:4px;background:var(--brass);border-radius:50%;}
+  .pillar.companies{background:var(--navy);color:#efece4;}
+  .pillar.companies h4,.pillar.companies .num{color:#efece4;}
+  .pillar.companies .num{color:var(--brass-soft);}
+  .co-mini{display:flex;flex-direction:column;gap:16px;margin-top:8px;}
+  .co-card{border:1px solid var(--navy-line);padding:22px;transition:border-color .3s ease,transform .3s ease;}
+  .co-card:hover{border-color:var(--brass-soft);transform:translateX(4px);}
+  .co-card h5{font-family:'Fraunces',serif;font-size:20px;margin-bottom:4px;}
+  .co-card .role{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--brass-soft);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
+  .co-card p{color:#a9b0bd;font-size:13px;font-weight:300;}
+
+  /* ================= LIFE — big & immersive ================= */
+  .life-section{padding-bottom:0;}
+  .life-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:120px;gap:14px;}
+  .life-tile{
+    position:relative;overflow:hidden;border-radius:2px;
+    display:flex;flex-direction:column;justify-content:flex-end;padding:26px;
+    color:#f6f4ef;cursor:pointer;
+  }
+  .life-tile .bg-layer{position:absolute;inset:-10%;transition:transform .8s cubic-bezier(.16,.8,.24,1);}
+  .life-tile:hover .bg-layer{transform:scale(1.1) rotate(1deg);}
+  .life-tile::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,.05) 60%);z-index:1;}
+  .life-tile .txt{position:relative;z-index:2;}
+  .life-tile .cat{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-soft);margin-bottom:6px;}
+  .life-tile h4{font-family:'Fraunces',serif;font-size:24px;font-weight:500;}
+  .life-tile .desc{font-size:12.5px;color:rgba(246,244,239,.65);margin-top:6px;font-weight:300;max-width:26ch;}
+  .lt-photo{grid-column:span 3;grid-row:span 4;background:linear-gradient(150deg,#232720,#3f4a34 50%,#7a8a5c);}
+  .lt-photo .bg-layer{background:linear-gradient(150deg,#232720,#3f4a34 50%,#7a8a5c);}
+  .lt-drone{grid-column:span 3;grid-row:span 2;}
+  .lt-drone .bg-layer{background:radial-gradient(circle at 70% 30%,rgba(169,129,78,.4),transparent 55%),linear-gradient(150deg,#141a20,#243043 60%,#0d141f);}
+  .lt-moto{grid-column:span 3;grid-row:span 2;}
+  .lt-moto .bg-layer{background:linear-gradient(150deg,#241a12,#5c3d20 55%,#a9814e);}
+  .lt-travel{grid-column:span 6;grid-row:span 2;}
+  .lt-travel .bg-layer{background:linear-gradient(120deg,#101820 0%,#22303f 30%,#a9814e 65%,#22303f 100%);background-size:200% 100%;}
+  .lt-travel:hover .bg-layer{animation:panmap 4s linear infinite;}
+  @keyframes panmap{ to{background-position:200% 0;} }
+
+  /* ================= WORDS — reworked ================= */
+  .words{background:var(--navy);color:#efece4;padding-bottom:0;}
+  .words .eyebrow{color:var(--brass-soft);}
+  .words .section-head{border-bottom-color:var(--navy-line);}
+  .words .section-num{color:#7d8797;}
+  .poetry-block{
+    padding:70px 0 100px;
+    text-align:center;
+    position:relative;
+  }
+  .poetry-hindi{
+    font-family:'Noto Sans Devanagari','Fraunces',serif;
+    font-size:clamp(26px,4.2vw,46px);
+    line-height:1.9;
+    color:#f6f4ef;
+    max-width:18ch;
+    margin:0 auto;
+  }
+  .poetry-attrib{margin-top:28px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass-soft);}
+  .poetry-cta{margin-top:36px;}
+  .books-showcase{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--navy-line);}
+  .book{
+    padding:70px 50px;border-right:1px solid var(--navy-line);
+    display:flex;gap:34px;align-items:center;
+    transition:background .3s ease;
+  }
+  .book:last-child{border-right:none;}
+  .book:hover{background:rgba(169,129,78,.06);}
+  .book-cover{
+    width:110px;height:160px;flex:none;
+    background:linear-gradient(160deg,#1c2430,#a9814e);
+    border:1px solid var(--navy-line);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-style:italic;color:#f6f4ef;font-size:13px;text-align:center;padding:10px;
+  }
+  .book h4{font-family:'Fraunces',serif;font-size:24px;margin-bottom:8px;}
+  .book .cat{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--brass-soft);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;display:block;}
+  .book p{font-size:13.5px;color:#a9b0bd;font-weight:300;}
+
+  /* ================= FOOTER — creative ================= */
+  .marquee{
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    overflow:hidden;white-space:nowrap;padding:22px 0;
+    background:var(--paper-dim);
+  }
+  .marquee-track{display:inline-block;animation:marquee 22s linear infinite;}
+  .marquee-track span{
+    font-family:'Fraunces',serif;font-style:italic;font-size:26px;
+    color:var(--ink);opacity:.8;padding:0 28px;
+  }
+  .marquee-track span.dot{font-family:'IBM Plex Mono',monospace;font-style:normal;color:var(--brass);opacity:1;}
+  @keyframes marquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce){ .marquee-track{animation:none;} }
+
+  footer{padding:100px 6vw 40px;}
+  .foot-cta{text-align:center;margin-bottom:90px;}
+  .foot-cta h2{font-size:clamp(34px,6vw,80px);}
+  .foot-cta h2 .serif-italic{color:var(--brass);}
+  .foot-cta .email{
+    display:inline-block;margin-top:30px;
+    font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:.02em;
+    border-bottom:1px solid var(--ink);padding-bottom:4px;
+    transition:color .25s ease,border-color .25s ease;
+  }
+  .foot-cta .email:hover{color:var(--brass);border-color:var(--brass);}
+  .footer-grid{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;}
+  .foot-col h5{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+  .foot-col a{display:block;font-size:14px;margin-bottom:10px;color:var(--ink);opacity:.8;transition:opacity .2s,transform .2s;}
+  .foot-col a:hover{opacity:1;color:var(--brass);transform:translateX(4px);}
+  .foot-bottom{max-width:1240px;margin:70px auto 0;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);flex-wrap:wrap;gap:10px;}
+
+  @media (max-width:900px){
+    nav{display:none;}
+    .nav-toggle{display:block;}
+    .worlds{grid-template-columns:1fr;}
+    .pillars{grid-template-columns:1fr;}
+    .life-grid{grid-template-columns:repeat(2,1fr);}
+    .lt-photo,.lt-drone,.lt-moto,.lt-travel{grid-column:span 2;grid-row:span 3;}
+    .books-showcase{grid-template-columns:1fr;}
+    .book{border-right:none;border-bottom:1px solid var(--navy-line);}
+  }
+</style>
+</head>
+<body>
+<!-- Required so Netlify Identity invite / password-reset links (which land on the homepage) can open the set-password box -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", (user) => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => { document.location.href = "/admin/"; });
+      }
+    });
+  }
+</script>
+
+<header>
+  <div class="logo">Shashi Sudhanshu</div>
+  <nav>
+    <a href="index.html" class="current">Home</a>
+    <a href="photography.html">Photography</a>
+    <a href="droneacharya.html">Droneacharya</a>
+    <a href="travel.html">Travel</a>
+    <a href="workshop.html">Workshop</a>
+    <a href="poetry.html">Poetry</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <button class="nav-toggle">Menu</button>
+</header>
+
+<section class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-scrim"></div>
+  <p class="hero-note">Video / photo background<br>— drop in your reel here —</p>
+  <div class="hero-content">
+    <div class="hero-kicker"><div class="dash"></div><span>Mumbai · Design Thinking · DOASTRA</span></div>
+    <h1>Engineer. Entrepreneur.<br><em>Storyteller.</em></h1>
+    <p class="hero-sub">Designing the future where technology meets human experience — through companies built, workshops run, roads ridden, and stories written along the way.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn btn-primary">Book a Workshop</a>
+      <a href="#work" class="btn btn-ghost">Work With Me</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="bar"></div><span>Scroll</span></div>
+</section>
+
+<section class="section worlds-intro reveal">
+  <div class="wrap section-head">
+    <h2>Three worlds,<br>one way of thinking.</h2>
+    <p class="section-num">01 — Overview</p>
+  </div>
+</section>
+
+<section class="section reveal" style="padding-top:0;">
+  <div class="wrap">
+    <div class="worlds">
+      <div class="world-card w1" data-tilt>
+        <div class="bg-layer" id="cms-home-work-bg"></div>
+        <div class="content">
+          <p class="eyebrow">Work</p>
+          <h3>Building &amp; Consulting</h3>
+          <p>Companies, workshops, and the practice of Design Thinking for teams building things people actually need.</p>
+          <a href="workshop.html" class="go">Enter Work <span class="arrow">→</span></a>
+        </div>
+      </div>
+      <div class="world-card w2" data-tilt>
+        <div class="bg-layer" id="cms-home-life-bg"></div>
+        <div class="content">
+          <p class="eyebrow">Life</p>
+          <h3>Flight, the Road &amp; the Frame</h3>
+          <p>Photography, Droneacharya films, rides on the Iron 883, and a travel diary mapped country by country.</p>
+          <a href="photography.html" class="go">Enter Life <span class="arrow">→</span></a>
+        </div>
+      </div>
+      <div class="world-card w3" data-tilt>
+        <div class="bg-layer" id="cms-home-words-bg"></div>
+        <div class="content">
+          <p class="eyebrow">Words</p>
+          <h3>Poetry &amp; Books</h3>
+          <p>Verses written in Hindi, and two books that hold the rest of the story.</p>
+          <a href="poetry.html" class="go">Enter Words <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Work</h2>
+      <p class="section-num">02 — Consulting · Workshops · Companies</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <span class="num">01</span>
+        <h4>Consulting</h4>
+        <p>Design Thinking brought into the room — helping teams reframe problems before they reach for solutions.</p>
+        <ul class="list">
+          <li>Product Thinking</li>
+          <li>Customer Experience</li>
+          <li>Service Design</li>
+          <li>Future of Work</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <span class="num">02</span>
+        <h4>Workshops</h4>
+        <p>Hands-on sessions for teams and leaders, built around real problems, not slides.</p>
+        <ul class="list">
+          <li>Corporate Innovation</li>
+          <li>AI for Business Leaders</li>
+          <li>Design Thinking Masterclass</li>
+          <li>Book a Workshop →</li>
+        </ul>
+      </div>
+      <div class="pillar companies">
+        <span class="num">03</span>
+        <h4>Companies</h4>
+        <p>Two companies, built on the same conviction.</p>
+        <div class="co-mini">
+          <div class="co-card">
+            <h5>DOASTRA</h5>
+            <p class="role">AI-Native Product Engineering</p>
+            <p>Tech consulting and solutions, built on an agency foundation in UX, design, and marketing.</p>
+          </div>
+          <div class="co-card">
+            <h5>SENJOY</h5>
+            <p class="role">AgeTech Startup</p>
+            <p>Designing dignified, human-first experiences for ageing well.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section life-section reveal" id="life">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Life</h2>
+      <p class="section-num">03 — Photography · Droneacharya · Motorcycle · Travel</p>
+    </div>
+    <div class="life-grid">
+      <a class="life-tile lt-photo" href="photography.html">
+        <div class="bg-layer" id="cms-home-photo-bg"></div>
+        <div class="txt">
+          <span class="cat">Photography</span>
+          <h4>Monsoon, Portraits &amp; the Street</h4>
+          <p class="desc">Galleries across monsoon, portraits, street, landscape, architecture, wildlife, and black &amp; white.</p>
+        </div>
+      </a>
+      <a class="life-tile lt-drone" href="droneacharya.html">
+        <div class="bg-layer" id="cms-home-drone-bg"></div>
+        <div class="txt">
+          <span class="cat">Droneacharya</span>
+          <h4>Films from Above</h4>
+          <p class="desc">Aerial films — nature, travel, commercial, industrial, FPV.</p>
+        </div>
+      </a>
+      <a class="life-tile lt-moto" href="travel.html">
+        <div class="bg-layer" id="cms-home-moto-bg"></div>
+        <div class="txt">
+          <span class="cat">Motorcycle</span>
+          <h4>Iron 883 — Ride Journal</h4>
+          <p class="desc">Trip maps, distances, favourite roads, and everything in between.</p>
+        </div>
+      </a>
+      <a class="life-tile lt-travel" href="travel.html">
+        <div class="bg-layer" id="cms-home-travel-bg"></div>
+        <div class="txt">
+          <span class="cat">Travel Diary</span>
+          <h4>An Interactive Map, One Country at a Time</h4>
+          <p class="desc">Photos, food, experiences, and the poems written along the way.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section words reveal" id="words">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Words</h2>
+      <p class="section-num">04 — Poetry · Books</p>
+    </div>
+    <div class="poetry-block">
+      <p class="poetry-hindi">शब्दों में बसती है वो दुनिया,<br>जो आँखों से कभी दिखती नहीं।</p>
+      <p class="poetry-attrib">— from the poetry shelf</p>
+      <div class="poetry-cta"><a href="#" class="btn btn-ghost">Read the Poems</a></div>
+    </div>
+    <div class="books-showcase">
+      <div class="book">
+        <div class="book-cover" style="font-family:'Noto Sans Devanagari','Fraunces',serif;font-style:normal;">मन का रंगरेज़</div>
+        <div>
+          <span class="cat">Book One</span>
+          <h4>मन का रंगरेज़</h4>
+          <p>The story behind the first book — synopsis, sample pages, and where to find it.</p>
+        </div>
+      </div>
+      <div class="book">
+        <div class="book-cover" style="font-family:'Noto Sans Devanagari','Fraunces',serif;font-style:normal;">बातों का बुनकर</div>
+        <div>
+          <span class="cat">Book Two</span>
+          <h4>बातों का बुनकर</h4>
+          <p>A second collection, carrying the poems written across every stop on the journey.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Let's build something worth remembering</span><span class="dot">●</span>
+    <span>Available for workshops</span><span class="dot">●</span>
+    <span>Let's build something worth remembering</span><span class="dot">●</span>
+    <span>Available for workshops</span><span class="dot">●</span>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="foot-cta reveal">
+    <h2>Let's design something <span class="serif-italic">worth remembering.</span></h2>
+    <a href="mailto:hello@shashisudhanshu.com" class="email">hello@shashisudhanshu.com</a>
+  </div>
+  <div class="footer-grid">
+    <div class="foot-col">
+      <h5>Work</h5>
+      <a href="workshop.html">Consulting</a>
+      <a href="workshop.html">Workshops</a>
+      <a href="#work">Companies</a>
+    </div>
+    <div class="foot-col">
+      <h5>Life</h5>
+      <a href="photography.html">Photography</a>
+      <a href="droneacharya.html">Droneacharya</a>
+      <a href="travel.html">Motorcycle</a>
+      <a href="travel.html">Travel Diary</a>
+    </div>
+    <div class="foot-col">
+      <h5>Words</h5>
+      <a href="poetry.html">Poetry</a>
+      <a href="poetry.html">Books</a>
+    </div>
+    <div class="foot-col">
+      <h5>Elsewhere</h5>
+      <a href="#">Instagram</a>
+      <a href="#">YouTube</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Shashi Sudhanshu</span>
+    <span>shashisudhanshu.com</span>
+  </div>
+</footer>
+
+<script>
+  // (cms-loader.js, included below, populates images from /content/home.json)
+  // header background shift on scroll
+  const header = document.querySelector('header');
+  const heroBg = document.getElementById('heroBg');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  window.addEventListener('scroll', () => {
+    header.style.padding = window.scrollY > 40 ? '18px 6vw' : '28px 6vw';
+    if(!reduceMotion && heroBg){
+      const y = window.scrollY;
+      heroBg.style.transform = `translateY(${y * 0.25}px) scale(${1 + Math.min(y/4000,0.06)})`;
+    }
+  });
+
+  // scroll-reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  // tilt effect on world cards
+  if(!reduceMotion){
+    document.querySelectorAll('[data-tilt]').forEach(card=>{
+      card.addEventListener('mousemove', (e)=>{
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left)/r.width - 0.5;
+        const y = (e.clientY - r.top)/r.height - 0.5;
+        card.style.transform = `perspective(900px) rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateZ(0)`;
+      });
+      card.addEventListener('mouseleave', ()=>{ card.style.transform='perspective(900px) rotateX(0) rotateY(0)'; });
+    });
+  }
+
+  // mobile nav toggle
+  const toggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('nav');
+  toggle.addEventListener('click', () => {
+    const open = nav.style.display === 'flex';
+    nav.style.display = open ? 'none' : 'flex';
+    nav.style.flexDirection = 'column';
+    nav.style.position = 'fixed';
+    nav.style.top = '70px';
+    nav.style.right = '6vw';
+    nav.style.background = '#15181d';
+    nav.style.padding = '20px';
+    nav.style.gap = '18px';
+  });
+</script>
+<script src="cms-loader.js" data-page="home"></script>
+
+</body>
+</html>
