@@ -3,8 +3,8 @@
   "work_bg": "/uploads/frame-174.png",
   "life_bg": "/uploads/frame-176.png",
   "words_bg": "/uploads/frame-175.png",
-  "photo_bg": "",
-  "drone_bg": "",
-  "moto_bg": "",
+  "photo_bg": "/uploads/pic.png",
+  "drone_bg": "/uploads/drone.png",
+  "moto_bg": "/uploads/harley.png",
   "travel_bg": ""
 }
